@@ -1,0 +1,51 @@
+/* ==========================================================================
+   تعریف توکن‌های متغیرهای استایل
+   ========================================================================== */
+
+:root {
+  /* لایه ۱: رنگ‌های پایه و مقادیر خام  */
+  --color-cyan-base: #08b8cc;
+  --color-cyan-glow: rgba(0, 229, 255, 0.24);
+  --color-magenta-base: #ff007f;
+  --color-magenta-glow: rgba(255, 0, 128, 0.16);
+
+  /* لایه ۲: توکن‌های معنایی حالت روشن  */
+  --bg-primary: #f8f9fa6c;               /* پس‌زمینه شیری و مات */
+  --bg-surface: #ffffffb6;               /* پس‌زمینه کارت‌ها و المان‌ها */
+  --bg-glass: rgba(243, 243, 243, 0.998); /* پس‌زمینه شیشه‌ای بلور شده */
+
+  --text-primary: #121417;             /* متن اصلی با کنتراست استاندارد */
+  --text-secondary: #5a626a;           /* متن توضیحات فرعی */
+  --text-muted: #8c96a0;               /* متن‌های غیرفعال و برچسب‌ها */
+
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-glow: rgba(0, 229, 255, 0.4);
+
+  --accent-cyan: var(--color-cyan-base);
+  --accent-magenta: var(--color-magenta-base);
+  --aura-cyan: var(--color-cyan-glow);
+  --aura-magenta: var(--color-magenta-glow);
+
+  /* مقادیر هندسی و فواصل */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-pill: 9999px;              /* انحنای کامل برای ناوبار کپسولی */
+  --transition-standard: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* لایه ۳: بازنویسی توکن‌ها برای حالت تیره  */
+[data-theme="dark"] {
+  --bg-primary: #0a0b10;               /* پس‌زمینه تیره اصلی */
+  --bg-surface: #12151e;               /* پس‌زمینه سطوح و کانتینرها */
+  --bg-glass: rgba(18, 21, 30, 0.998);   /* پس‌زمینه شیشه‌ای تیره */
+
+  --text-primary: #f3f4f6;             /* متن روشن اصلی */
+  --text-secondary: #9ca3af;           /* متن فرعی خاکستری */
+  --text-muted: #6b7280;
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(0, 229, 255, 0.5);
+
+  --aura-cyan: rgba(0, 229, 255, 0.22);
+  --aura-magenta: rgba(255, 0, 128, 0.2);
+}

@@ -1,0 +1,505 @@
+/* ==========================================================================
+   ABOUT SECTION MODULE STYLES (Dynamic Theme & 3D Elevated IDE)
+   ========================================================================== */
+
+/* ---------------- کانتینر اصلی و سکشن ---------------- */
+.sectionWrapper {
+  width: 100%;
+  padding: 80px 0 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.container {
+  width: 94%;
+  max-width: 1700px;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 5.5rem;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* ---------------- ستون متن معرفی ---------------- */
+.textContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.title {
+  font-size: 2.9rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1.35;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.highlight {
+  background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-magenta) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+.description {
+  font-size: 1.18rem;
+  font-weight: 500;
+  line-height: 2.1;
+  color: #334155;
+  margin: 0;
+  text-align: justify;
+  transition: color 0.3s ease;
+}
+
+:root[data-theme="dark"] .description {
+  color: #cbd5e1;
+}
+
+/* ---------------- ستون و کارت IDE ---------------- */
+.ideWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  perspective: 2000px;
+}
+
+.ideCard {
+  position: relative;
+  width: 100%;
+  max-width: 650px;
+  background: rgba(241, 245, 249, 0.92);
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  border-radius: 22px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 30px;
+  box-sizing: border-box;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.15s ease-out, border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 20px 35px -8px rgba(15, 23, 42, 0.12),
+    0 1px 0 0 rgba(255, 255, 255, 0.9) inset;
+}
+
+:root[data-theme="dark"] .ideCard {
+  background: rgba(18, 21, 30, 0.88);
+  border-color: rgba(255, 255, 255, 0.09);
+  box-shadow: 
+    0 10px 30px -10px rgba(0, 0, 0, 0.8),
+    0 25px 50px -12px rgba(0, 0, 0, 0.6),
+    0 1px 0 0 rgba(255, 255, 255, 0.12) inset;
+}
+
+.ideCard:hover {
+  border-color: rgba(calc(130 - var(--norm-x, 0) * 125), calc(120 + var(--norm-x, 0) * 120), 255, 0.65);
+}
+
+:root[data-theme="dark"] .ideCard:hover {
+  border-color: rgba(calc(130 - var(--norm-x, 0) * 125), calc(120 + var(--norm-x, 0) * 120), 255, 0.65);
+}
+
+.ideCard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    650px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    var(--aura-cyan),
+    var(--aura-magenta) 40%,
+    transparent 75%
+  );
+  opacity: var(--glow-opacity, 0);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---------------- هدر ادیتور ---------------- */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  padding-bottom: 14px;
+  margin-bottom: 22px;
+  position: relative;
+  z-index: 2;
+  transform: translateZ(25px);
+}
+
+.windowControls {
+  display: flex;
+  gap: 8px;
+}
+
+.controlDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.redDot { background-color: #ff5f56; }
+.yellowDot { background-color: #ffbd2e; }
+.greenDot { background-color: #27c93f; }
+
+.fileName {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  letter-spacing: 0.5px;
+}
+
+/* ---------------- بدنه کد و سینتکس هایلایت ---------------- */
+.codeContent {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 24px;
+  transform: translateZ(35px);
+  text-align: left;
+  direction: ltr;
+}
+
+.codeContent pre {
+  margin: 0;
+  font-family: 'Fira Code', Consolas, Monaco, monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.85;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.keyword { color: #c026d3; font-weight: 700; }
+.variable { color: #0284c7; font-weight: 600; }
+.string { color: #16a34a; font-weight: 600; }
+
+:root[data-theme="dark"] .keyword { color: #ff2a94; }
+:root[data-theme="dark"] .variable { color: #00e5ff; }
+:root[data-theme="dark"] .string { color: #6ee7b7; }
+
+/* ---------------- بخش فوتر پروفایل ---------------- */
+.profileContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+  padding-top: 18px;
+  margin-top: auto;
+  position: relative;
+  z-index: 2;
+  transform: translateZ(30px);
+}
+
+.profileMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.profileName {
+  color: var(--text-primary);
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.profileRole {
+  color: var(--accent-cyan);
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.avatarRing {
+  width: 74px;
+  height: 74px;
+  min-width: 74px;
+  border-radius: 50%;
+  padding: 2.5px;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--bg-surface);
+}
+
+/* ==========================================================================
+   📱 ریسپانسیو تبلت و دسکتاپ کوچک (Max 1080px)
+   ========================================================================== */
+@media (max-width: 1080px) {
+  .sectionWrapper {
+    padding: 40px 0 20px 0 !important; /* کاهش پدینگ بالا در تبلت */
+  }
+
+  .container {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .ideWrapper {
+    order: 1;
+    perspective: none;
+  }
+
+  .textContent {
+    order: 2;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .description {
+    text-align: center;
+  }
+
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .ideCard::before {
+    display: none !important;
+  }
+
+  .ideCard {
+    transform: none !important;
+    transform-style: flat;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: #f8fafc !important;
+    border: 1px solid rgba(203, 213, 225, 0.9) !important;
+    box-shadow: none !important;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease !important;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :root[data-theme="dark"] .ideCard {
+    background: #11151f !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    box-shadow: none !important;
+  }
+
+  .ideCard:hover,
+  .ideCard:active {
+    transform: translateY(-4px) !important;
+    border-color: #0284c7 !important;
+    box-shadow: none !important;
+  }
+
+  :root[data-theme="dark"] .ideCard:hover,
+  :root[data-theme="dark"] .ideCard:active {
+    border-color: #00e5ff !important;
+    box-shadow: none !important;
+  }
+
+  .cardHeader,
+  .codeContent,
+  .profileContainer {
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   📱 بهینه‌سازی تمیز و بدون فاصله اضافه در موبایل (Max 600px)
+   ========================================================================== */
+@media (max-width: 600px) {
+  /* 👈 ریشه‌کن کردن پدینگ‌های اضافه بالا و پایین */
+  .sectionWrapper {
+    padding: 20px 0 15px 0 !important; 
+  }
+
+  .container {
+    gap: 20px !important; /* فاصله بهینه بین کارت کد و متن معرفی */
+    width: 92%;
+  }
+
+  .title {
+    font-size: 1.75rem !important;
+    line-height: 1.3 !important;
+  }
+
+  /* ۱. قاب کارت IDE کاملاً مینیاتوری و فلت */
+  .ideCard {
+    width: 100%;
+    max-width: 325px;
+    aspect-ratio: 1 / 1;
+    padding: 12px 14px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  .cardHeader {
+    padding-bottom: 6px;
+    margin-bottom: 2px;
+  }
+
+  .fileName {
+    font-size: 0.68rem;
+    letter-spacing: 0.3px;
+  }
+
+  .controlDot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .codeContent {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+    margin-bottom: 0 !important;
+  }
+
+  .codeContent pre {
+    font-size: 0.66rem !important;
+    line-height: 1.38 !important;
+    letter-spacing: -0.2px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0;
+  }
+
+  .profileContainer {
+    padding-top: 6px;
+    margin-top: 0;
+    gap: 10px;
+  }
+
+  .profileName {
+    font-size: 0.92rem;
+  }
+
+  .profileRole {
+    font-size: 0.70rem;
+  }
+
+  .avatarRing {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+  }
+
+  /* ۲. متن معرفی و بیوگرافی (تفکیک دقیق رنگ در لایت و دارک) */
+  .heroBio, 
+  .aboutBio, 
+  .description,
+  .projectDescription { 
+    font-size: 0.84rem !important;
+    line-height: 1.7 !important;
+    text-align: justify;
+    margin: 6px 0 10px 0 !important;
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    max-height: none !important;
+
+    /* رنگ لایت‌مود موبایل */
+    color: #1e293b !important;
+  }
+
+  /* رنگ دارک‌مود موبایل */
+  :root[data-theme="dark"] .heroBio,
+  :root[data-theme="dark"] .aboutBio,
+  :root[data-theme="dark"] .description,
+  :root[data-theme="dark"] .projectDescription {
+    color: #cbd5e1 !important;
+  }
+}
+
+/* ---------------- نشانگر Scroll Down نئونی ---------------- */
+.scrollDownWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  
+  margin-top: 10.5rem; 
+
+  cursor: pointer;
+  user-select: none;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  animation: floatBounce 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.scrollDownWrapper:hover {
+  transform: scale(1.08);
+}
+
+.scrollText {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-family: inherit;
+  background: linear-gradient(135deg, #00e5ff 0%, #d946ef 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(0, 229, 255, 0.3));
+}
+
+.scrollArrow {
+  filter: drop-shadow(0 3px 8px rgba(217, 70, 239, 0.45));
+  transition: transform 0.3s ease;
+}
+
+@keyframes floatBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+@media (max-width: 1200px) {
+  .scrollDownWrapper {
+    margin: 1.5rem auto 0 auto !important;
+  }
+  
+  .scrollText {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+  }
+  
+  .scrollArrow {
+    width: 22px;
+    height: 22px;
+  }
+}
