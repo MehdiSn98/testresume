@@ -1,24 +1,38 @@
 /* ==========================================================================
-   تعریف توکن‌های متغیرهای استایل
+   ۱. تعریف سورس فونت یکان
    ========================================================================== */
+@font-face {
+  font-family: 'Yekan';
+  src: url('/fonts/Yekan-Regular.ttf') format('truetype');
+  font-weight: 00;
+  font-style: normal;
+  font-display: swap;
+}
 
+/* ==========================================================================
+   ۲. تعریف توکن‌های طراحی (Design Tokens)
+   ========================================================================== */
 :root {
-  /* لایه ۱: رنگ‌های پایه و مقادیر خام  */
+  /* لایه تایپوگرافی */
+  --font-primary: 'Yekan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Fira Code', Consolas, Monaco, monospace;
+
+  /* لایه ۱: رنگ‌های پایه */
   --color-cyan-base: #08b8cc;
   --color-cyan-glow: rgba(0, 229, 255, 0.24);
   --color-magenta-base: #ff007f;
   --color-magenta-glow: rgba(255, 0, 128, 0.16);
 
-  /* لایه ۲: توکن‌های معنایی حالت روشن  */
-  --bg-primary: #f8f9fa6c;               /* پس‌زمینه شیری و مات */
-  --bg-surface: #ffffffb6;               /* پس‌زمینه کارت‌ها و المان‌ها */
-  --bg-glass: rgba(243, 243, 243, 0.998); /* پس‌زمینه شیشه‌ای بلور شده */
+  /* لایه ۲: توکن‌های حالت روشن - شیشه خاکستری تیره و دودی */
+  --bg-primary: #e2e8f0;                 /* زمینه خاکستری ملایم خنثی */
+  --bg-surface: rgba(212, 222, 236, 0.445); /* شیشه خاکستری دودی مات */
+  --bg-glass: rgba(213, 229, 248, 0.998);   /* لایه گلس مات خاکستری */
 
-  --text-primary: #121417;             /* متن اصلی با کنتراست استاندارد */
-  --text-secondary: #5a626a;           /* متن توضیحات فرعی */
-  --text-muted: #8c96a0;               /* متن‌های غیرفعال و برچسب‌ها */
+  --text-primary: #0f172a;               /* متن اصلی کاملاً خوانا و پرکنتراست */
+  --text-secondary: #010305;             /* متن توضیحات خاکستری تیره */
+  --text-muted: #262d36;
 
-  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(100, 116, 139, 0.35); /* بوردر ظریف خاکستری دودی */
   --border-glow: rgba(0, 229, 255, 0.4);
 
   --accent-cyan: var(--color-cyan-base);
@@ -26,22 +40,22 @@
   --aura-cyan: var(--color-cyan-glow);
   --aura-magenta: var(--color-magenta-glow);
 
-  /* مقادیر هندسی و فواصل */
+  /* فواصل و انحناها */
   --radius-sm: 8px;
   --radius-md: 16px;
-  --radius-pill: 9999px;              /* انحنای کامل برای ناوبار کپسولی */
+  --radius-pill: 9999px;
   --transition-standard: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* لایه ۳: بازنویسی توکن‌ها برای حالت تیره  */
+/* لایه ۳: دارک مود */
 [data-theme="dark"] {
-  --bg-primary: #0a0b10;               /* پس‌زمینه تیره اصلی */
-  --bg-surface: #12151e;               /* پس‌زمینه سطوح و کانتینرها */
-  --bg-glass: rgba(18, 21, 30, 0.998);   /* پس‌زمینه شیشه‌ای تیره */
+  --bg-primary: #0a0b10;
+  --bg-surface: rgba(18, 21, 30, 0.651);
+  --bg-glass: rgba(18, 21, 30, 0.998);
 
-  --text-primary: #f3f4f6;             /* متن روشن اصلی */
-  --text-secondary: #9ca3af;           /* متن فرعی خاکستری */
-  --text-muted: #6b7280;
+  --text-primary: #f3f4f6;
+  --text-secondary: #bec7d6;
+  --text-muted: #626a79;
 
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-glow: rgba(0, 229, 255, 0.5);

@@ -18,14 +18,10 @@
 .title {
   font-size: 2.25rem;
   font-weight: 900;
-  color: var(--text-primary, #0f172a);
+  color: var(--text-primary);
   margin-bottom: 0.75rem;
   letter-spacing: 0.05em;
-  transition: color 0.3s ease;
-}
-
-:root[data-theme="dark"] .title {
-  color: var(--text-primary, #ffffff);
+  transition: color var(--transition-standard);
 }
 
 @media (min-width: 768px) {
@@ -37,9 +33,9 @@
 .divider {
   width: 5rem;
   height: 0.25rem;
-  background: linear-gradient(135deg, var(--accent-cyan, #00e5ff), var(--accent-magenta, #d946ef));
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
   margin: 0 auto;
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
 }
 
 /* ---------------- ساختار گرید کارت‌ها ---------------- */
@@ -61,7 +57,7 @@
   }
 }
 
-/* ---------------- استایل پایه کارت‌ها (دقیقاً بر پایه ideCard) ---------------- */
+/* ---------------- استایل پایه کارت‌ها (بر پایه توکن‌های گلس) ---------------- */
 .card {
   position: relative;
   display: flex;
@@ -73,29 +69,25 @@
   cursor: pointer;
   overflow: hidden;
 
-  /* استایل پایه در حالت لایت (مشابه ideCard) */
-  background: rgba(241, 245, 249, 0.92);
-  border: 1px solid rgba(203, 213, 225, 0.8);
+  /* دریافت مستقیم از توکن شیشه دودی */
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 
-  /* سایه برجسته با لبه نوری داخلی (Inset) */
   box-shadow: 
-    0 4px 6px -1px rgba(0, 0, 0, 0.05),
-    0 15px 30px -8px rgba(15, 23, 42, 0.1),
-    0 1px 0 0 rgba(255, 255, 255, 0.9) inset;
+    0 10px 25px -5px rgba(51, 65, 85, 0.12),
+    0 20px 40px -10px rgba(15, 23, 42, 0.1),
+    0 1px 0 0 rgba(255, 255, 255, 0.15) inset;
 
-  /* حفظ انیمیشن نرم اصلی */
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), 
-              border-color 0.3s ease, 
-              box-shadow 0.3s ease,
-              background-color 0.3s ease;
+              border-color var(--transition-standard), 
+              box-shadow var(--transition-standard),
+              background var(--transition-standard);
 }
 
 /* استایل کارت‌ها در تم دارک */
-:root[data-theme="dark"] .card {
-  background: rgba(18, 21, 30, 0.88);
-  border-color: rgba(255, 255, 255, 0.09);
+[data-theme="dark"] .card {
   box-shadow: 
     0 10px 30px -10px rgba(0, 0, 0, 0.8),
     0 20px 40px -12px rgba(0, 0, 0, 0.6),
@@ -111,7 +103,7 @@
   height: 3px;
   background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.4), transparent);
   opacity: 0.4;
-  transition: opacity 0.3s ease, background 0.3s ease;
+  transition: opacity var(--transition-standard), background var(--transition-standard);
 }
 
 /* ---------------- انیمیشن و هاور یکی‌درمیان (Cyan / Magenta) ---------------- */
@@ -119,44 +111,44 @@
 /* کارت‌های فرد: نئون Cyan */
 .card:nth-child(odd):hover {
   transform: translateY(-6px);
-  border-color: rgba(0, 229, 255, 0.75);
+  border-color: var(--accent-cyan);
+  background: var(--aura-cyan);
   box-shadow: 
-    0 12px 25px -8px rgba(0, 229, 255, 0.35),
+    0 16px 32px -6px var(--aura-cyan),
+    0 0 20px -4px var(--aura-cyan),
     0 1px 0 0 rgba(255, 255, 255, 0.2) inset;
 }
 
 .card:nth-child(odd):hover .topLine {
   opacity: 1;
-  background: linear-gradient(to right, transparent, #00e5ff, transparent);
+  background: linear-gradient(to right, transparent, var(--accent-cyan), transparent);
 }
 
 /* کارت‌های زوج: نئون Magenta */
 .card:nth-child(even):hover {
   transform: translateY(-6px);
-  border-color: rgba(217, 70, 239, 0.75);
+  border-color: var(--accent-magenta);
+  background: var(--aura-magenta);
   box-shadow: 
-    0 12px 25px -8px rgba(217, 70, 239, 0.35),
+    0 16px 32px -6px var(--aura-magenta),
+    0 0 20px -4px var(--aura-magenta),
     0 1px 0 0 rgba(255, 255, 255, 0.2) inset;
 }
 
 .card:nth-child(even):hover .topLine {
   opacity: 1;
-  background: linear-gradient(to right, transparent, #d946ef, transparent);
+  background: linear-gradient(to right, transparent, var(--accent-magenta), transparent);
 }
 
 /* ---------------- متن‌های داخل کارت ---------------- */
 .cardTitle {
   font-size: 1.15rem;
   font-weight: 800;
-  color: var(--text-primary, #0f172a);
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
   text-align: center;
-  transition: color 0.3s ease;
+  transition: color var(--transition-standard);
   letter-spacing: 0.3px;
-}
-
-:root[data-theme="dark"] .cardTitle {
-  color: #f1f5f9;
 }
 
 @media (min-width: 768px) {
@@ -165,44 +157,40 @@
   }
 }
 
-.card:hover .cardTitle {
-  color: #0284c7; /* هایلایت سیان در هاور لایت */
+.card:nth-child(odd):hover .cardTitle {
+  color: var(--accent-cyan);
 }
 
-:root[data-theme="dark"] .card:hover .cardTitle {
-  color: #ffffff;
+.card:nth-child(even):hover .cardTitle {
+  color: var(--accent-magenta);
 }
 
 .cardDesc {
   font-size: 0.9rem;
-  color: var(--text-secondary, #64748b);
+  color: var(--text-secondary);
   text-align: center;
   line-height: 1.6;
   margin: 0;
-  transition: color 0.3s ease;
-}
-
-:root[data-theme="dark"] .cardDesc {
-  color: #94a3b8;
+  transition: color var(--transition-standard);
 }
 
 .card:hover .cardDesc {
-  color: var(--text-primary, #1e293b);
-}
-
-:root[data-theme="dark"] .card:hover .cardDesc {
-  color: #cbd5e1;
+  color: var(--text-primary);
 }
 
 /* ---------------- بهینه‌سازی موبایل ---------------- */
 @media (max-width: 640px) {
+  .skillsSection {
+    padding: 3.5rem 1rem;
+  }
+
   .card {
     padding: 1.75rem 1.25rem;
-    border-radius: 18px;
+    border-radius: var(--radius-md);
   }
   
   .card:hover,
   .card:active {
-    transform: translateY(-4px); /* لیفت متناسب در تاچ موبایل */
+    transform: translateY(-4px);
   }
 }

@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Navbar.module.css";
 import Image from "next/image";
 
 const NAV_ITEMS = [
   { href: "#about", id: "about", label: "درباره من" },
   { href: "#skills", id: "skills", label: "مهارت‌ها" },
-  { href: "#projects", id: "projects", label: "پروژه‌ها" },
-  { href: "#contact", id: "contact", label: "سوابق کاری" },
   { href: "#education", id: "education", label: "تحصیلات و مدارک" },
+  { href: "#projects", id: "projects", label: "پروژه‌ها" },
+  { href: "#experience", id: "experience", label: "سوابق کاری" },
 ];
 
 export default function Navbar() {
@@ -17,6 +17,10 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#about");
+
+  // قفل کردن تشخیص اسکرول حین اسکرول ناشی از کلیک
+  const isClickScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef(null);
 
   // دریافت تم ذخیره‌شده
   useEffect(() => {
@@ -37,7 +41,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll, true);
   }, []);
 
-  // ۲. تشخیص خودکار بخش فعال هنگام اسکرول صفحه با IntersectionObserver
+  // ۲. تشخیص خودکار بخش فعال فقط هنگام اسکرول دستی کاربر
   useEffect(() => {
     const sectionElements = NAV_ITEMS.map((item) =>
       document.getElementById(item.id)
@@ -45,9 +49,11 @@ export default function Navbar() {
 
     if (sectionElements.length === 0) return;
 
-    // خط فرضی در ۳۰٪ بالای صفحه برای فعال‌سازی بخش
     const observer = new IntersectionObserver(
       (entries) => {
+        // اگر ناشی از کلیک روی لینک است، سکشن‌های میانی هایلایت نشوند
+        if (isClickScrollingRef.current) return;
+
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setActiveSection(`#${entry.target.id}`);
@@ -55,7 +61,7 @@ export default function Navbar() {
         });
       },
       {
-        rootMargin: "-25% 0px -65% 0px", // تنظیم محدوده فعال‌سازی در دید کاربر
+        rootMargin: "-25% 0px -65% 0px",
         threshold: 0,
       }
     );
@@ -72,9 +78,28 @@ export default function Navbar() {
     localStorage.setItem("app-theme", nextTheme);
   };
 
-  const handleLinkClick = (href) => {
-    setActiveSection(href);
+  const handleLinkClick = (e, href) => {
+    e.preventDefault();
+    setActiveSection(href); // بلافاصله مقصد انتخاب شود
     setIsMenuOpen(false);
+
+    // فعال کردن قفل به مدت ۸۰۰ میلی‌ثانیه برای پرش از سکشن‌های میانی
+    isClickScrollingRef.current = true;
+    if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+
+    const targetId = href.replace("#", "");
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    scrollTimeoutRef.current = setTimeout(() => {
+      isClickScrollingRef.current = false;
+    }, 800);
   };
 
   return (
@@ -105,7 +130,7 @@ export default function Navbar() {
             <li key={item.href}>
               <a 
                 href={item.href} 
-                onClick={() => handleLinkClick(item.href)}
+                onClick={(e) => handleLinkClick(e, item.href)}
                 className={`${styles.navItem} ${activeSection === item.href ? styles.active : ""}`}
               >
                 {item.label}
@@ -127,7 +152,7 @@ export default function Navbar() {
           
           <a 
             href="#contact" 
-            onClick={() => handleLinkClick("#contact")}
+            onClick={(e) => handleLinkClick(e, "#contact")}
             className={styles.contactBtn} 
             aria-label="ارتباط"
           >
@@ -156,7 +181,7 @@ export default function Navbar() {
             <li key={item.href}>
               <a 
                 href={item.href} 
-                onClick={() => handleLinkClick(item.href)} 
+                onClick={(e) => handleLinkClick(e, item.href)} 
                 className={`${styles.mobileNavItem} ${activeSection === item.href ? styles.active : ""}`}
               >
                 {item.label}

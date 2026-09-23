@@ -1,0 +1,437 @@
+/* ==========================================================================
+   EDUCATION ROADMAP MODULE STYLES (Synchronized Smoked Glassmorphic Design)
+   ========================================================================== */
+
+/* Container */
+.roadmapSection {
+  padding: 4rem 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.subTitle {
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+}
+
+.divider {
+  width: 5rem;
+  height: 0.25rem;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+  margin: 15px auto;
+  border-radius: var(--radius-pill);
+}
+
+.title {
+  font-size: 2.9rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1.35;
+  margin: 0;
+  letter-spacing: -0.5px;
+  transition: color var(--transition-standard);
+}
+
+/* =========================================
+   تایم‌لاین و خط میانی (Dashed در تمام ویوها)
+   ========================================= */
+.timelineContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.centerLine {
+  position: absolute;
+  top: 1.5rem;
+  bottom: 2rem;
+  right: 50%;
+  transform: translateX(50%);
+  width: 0;
+  background-color: transparent;
+  border-right: 2px dashed var(--border-subtle); /* خط‌چین در دسکتاپ و موبایل */
+  z-index: 1;
+}
+
+.timelineRow {
+  position: relative;
+  display: flex;
+  width: 100%;
+  z-index: 2;
+}
+
+.rowEven { justify-content: flex-start; }
+.rowOdd  { justify-content: flex-end; }
+
+/* دایره‌های روی خط */
+.node {
+  position: absolute;
+  top: 1.5rem;
+  right: 50%;
+  transform: translateX(50%);
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-primary);
+  border: 3px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  transition: all var(--transition-standard);
+}
+
+[data-theme="dark"] .node {
+  background: var(--bg-surface);
+}
+
+.nodeCyan {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 12px var(--aura-cyan);
+}
+
+.nodeMagenta {
+  border-color: var(--accent-magenta);
+  box-shadow: 0 0 12px var(--aura-magenta);
+}
+
+.nodeCore {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: currentColor;
+}
+.nodeCyan .nodeCore { background-color: var(--accent-cyan); }
+.nodeMagenta .nodeCore { background-color: var(--accent-magenta); }
+
+/* =========================================
+   کارت‌ها (متصل به توکن‌های گلس خاکستری دودی)
+   ========================================= */
+.glassCard {
+  width: calc(50% - 3rem) !important;
+  height: 240px !important;
+  min-height: 240px !important;
+  max-height: 240px !important;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+  border-radius: 22px;
+  cursor: pointer;
+
+  /* استایل شیشه خاکستری دودی مات */
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-subtle) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+
+  box-shadow: 
+    0 10px 25px -5px rgba(51, 65, 85, 0.12),
+    0 20px 40px -10px rgba(15, 23, 42, 0.1),
+    0 1px 0 0 rgba(255, 255, 255, 0.15) inset !important;
+
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              border-color var(--transition-standard), 
+              box-shadow var(--transition-standard), 
+              background-color var(--transition-standard);
+}
+
+/* استایل در تم دارک */
+[data-theme="dark"] .glassCard {
+  box-shadow: 
+    0 10px 30px -10px rgba(0, 0, 0, 0.8),
+    0 20px 40px -12px rgba(0, 0, 0, 0.6),
+    0 1px 0 0 rgba(255, 255, 255, 0.12) inset !important;
+}
+
+/* خط باریک بالای کارت */
+.glassCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.4), transparent);
+  opacity: 0.4;
+  transition: opacity var(--transition-standard), background var(--transition-standard);
+}
+
+/* هاور نئون Cyan */
+.cardCyan:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent-cyan) !important;
+  background-color: var(--aura-cyan) !important;
+  box-shadow: 
+    0 16px 32px -6px var(--aura-cyan),
+    0 0 20px -4px var(--aura-cyan),
+    0 1px 0 0 rgba(255, 255, 255, 0.2) inset !important;
+}
+
+.cardCyan:hover::before {
+  opacity: 1;
+  background: linear-gradient(to right, transparent, var(--accent-cyan), transparent);
+}
+
+/* هاور نئون Magenta */
+.cardMagenta:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent-magenta) !important;
+  background-color: var(--aura-magenta) !important;
+  box-shadow: 
+    0 16px 32px -6px var(--aura-magenta),
+    0 0 20px -4px var(--aura-magenta),
+    0 1px 0 0 rgba(255, 255, 255, 0.2) inset !important;
+}
+
+.cardMagenta:hover::before {
+  opacity: 1;
+  background: linear-gradient(to right, transparent, var(--accent-magenta), transparent);
+}
+
+/* المان‌های متنی کارت */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.periodText {
+  color: var(--text-secondary);
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.badgeCyan {
+  color: var(--accent-cyan);
+  background: var(--aura-cyan);
+  border: 1px solid var(--accent-cyan);
+}
+
+.badgeMagenta {
+  color: var(--accent-magenta);
+  background: var(--aura-magenta);
+  border: 1px solid var(--accent-magenta);
+}
+
+.degreeTitle {
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  transition: color var(--transition-standard);
+}
+
+.cardCyan:hover .degreeTitle {
+  color: var(--accent-cyan);
+}
+
+.cardMagenta:hover .degreeTitle {
+  color: var(--accent-magenta);
+}
+
+.institutionName {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  transition: color var(--transition-standard);
+}
+
+.cardCyan:hover .institutionName,
+.cardMagenta:hover .institutionName {
+  color: var(--text-primary);
+}
+
+/* چیپ‌ها */
+.chipsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 0.85rem;
+  margin-top: auto;
+}
+
+.skillChip {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.28rem 0.65rem;
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition-standard), color var(--transition-standard);
+}
+
+.cardCyan:hover .skillChip:hover {
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+}
+
+.cardMagenta:hover .skillChip:hover {
+  color: var(--accent-magenta);
+  border-color: var(--accent-magenta);
+}
+
+/* =========================================
+   چیدمان زیر 700px (کارت‌ها و خط در مرکز + پوشاندن خط پشت کارت)
+   ========================================= */
+@media (max-width: 700px) {
+  .timelineContainer {
+    gap: 3.5rem;
+  }
+
+  .centerLine {
+    top: 0;
+    bottom: 2rem !important;
+    right: 50% !important;
+    left: auto !important;
+    transform: translateX(50%) !important;
+    width: 0 !important;
+    background-color: transparent !important;
+    border-right: 2px dashed var(--border-subtle) !important; /* حفظ خط‌چین */
+    z-index: 1 !important;
+  }
+
+  .timelineRow {
+    justify-content: center !important;
+    padding: 0 !important;
+    position: relative;
+    width: 100%;
+    z-index: 2 !important;
+  }
+
+  .timelineRow .glassCard {
+    width: 86% !important;
+    max-width: 380px !important;
+    height: 220px !important;
+    min-height: 220px !important;
+    max-height: 220px !important;
+    margin: 0 auto !important;
+    z-index: 2 !important;
+    padding: 1.25rem !important;
+    border-radius: 18px;
+
+    /* مات‌تر کردن پس‌زمینه برای پوشاندن و دیده نشدن خط میانی از پشت شیشه */
+    background: #e2e8f0 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  [data-theme="dark"] .timelineRow .glassCard {
+    background: #0f121a !important; /* مات و تیره در دارک برای مخفی کردن خط */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .timelineRow .glassCard:hover,
+  .timelineRow .glassCard:active {
+    transform: translateY(-4px);
+  }
+
+  .node {
+    right: 50% !important;
+    left: auto !important;
+    transform: translate(50%, -50%) !important;
+    top: 0 !important;
+    z-index: 3 !important;
+  }
+}
+
+/* =========================================
+   چیدمان زیر 470px تا 320px
+   ========================================= */
+@media (max-width: 470px) {
+  .timelineContainer {
+    gap: 3rem;
+  }
+
+  .centerLine {
+    top: 0;
+    bottom: 1.5rem !important;
+    border-right: 2px dashed var(--border-subtle) !important;
+  }
+
+  .timelineRow .glassCard {
+    width: 270px !important;
+    max-width: 85vw !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    min-height: unset !important;
+    max-height: unset !important;
+    padding: 1rem !important;
+  }
+
+  .node {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+  }
+
+  .nodeCore {
+    width: 6px;
+    height: 6px;
+  }
+
+  .cardHeader {
+    margin-bottom: 0.35rem;
+  }
+
+  .periodText {
+    font-size: 0.68rem;
+  }
+
+  .badge {
+    font-size: 0.58rem;
+    padding: 0.12rem 0.4rem;
+  }
+
+  .degreeTitle {
+    font-size: 0.85rem !important;
+    line-height: 1.25;
+    margin-bottom: 0.2rem;
+  }
+
+  .institutionName {
+    font-size: 0.72rem !important;
+    margin-bottom: 0.25rem;
+  }
+
+  .chipsContainer {
+    gap: 0.25rem;
+    margin-top: auto;
+    padding-top: 0.4rem;
+  }
+
+  .skillChip {
+    font-size: 0.56rem !important;
+    padding: 0.1rem 0.35rem !important;
+  }
+}
