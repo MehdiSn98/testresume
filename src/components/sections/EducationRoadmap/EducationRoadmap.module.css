@@ -42,7 +42,7 @@
 }
 
 /* =========================================
-   تایم‌لاین و خط میانی (Dashed در تمام ویوها)
+   تایم‌لاین و خط میانی (Desktop)
    ========================================= */
 .timelineContainer {
   position: relative;
@@ -59,7 +59,7 @@
   transform: translateX(50%);
   width: 0;
   background-color: transparent;
-  border-right: 2px dashed var(--border-subtle); /* خط‌چین در دسکتاپ و موبایل */
+  border-right: 2px dashed var(--border-subtle);
   z-index: 1;
 }
 
@@ -115,7 +115,7 @@
 .nodeMagenta .nodeCore { background-color: var(--accent-magenta); }
 
 /* =========================================
-   کارت‌ها (متصل به توکن‌های گلس خاکستری دودی)
+   کارت‌ها (شیشه دودی واقعی در دسکتاپ و موبایل)
    ========================================= */
 .glassCard {
   width: calc(50% - 3rem) !important;
@@ -300,24 +300,18 @@
   border-color: var(--accent-magenta);
 }
 
-/* =========================================
-   چیدمان زیر 700px (کارت‌ها و خط در مرکز + پوشاندن خط پشت کارت)
-   ========================================= */
+/* ==========================================================================
+   چیدمان زیر 700px (حذف فیزیکی خط از پشت کارت + اتصال فاصله‌ها)
+   ========================================================================== */
 @media (max-width: 700px) {
   .timelineContainer {
     gap: 3.5rem;
+    position: relative;
   }
 
+  /* ۱. حذف خط پیوسته ممتد تا اصلاً از پشت کارت عبور نکند */
   .centerLine {
-    top: 0;
-    bottom: 2rem !important;
-    right: 50% !important;
-    left: auto !important;
-    transform: translateX(50%) !important;
-    width: 0 !important;
-    background-color: transparent !important;
-    border-right: 2px dashed var(--border-subtle) !important; /* حفظ خط‌چین */
-    z-index: 1 !important;
+    display: none !important;
   }
 
   .timelineRow {
@@ -328,6 +322,21 @@
     z-index: 2 !important;
   }
 
+  /* ۲. رسم خط‌چین فقط و فقط در فضای خالی (Gap) بین کارت‌ها */
+  .timelineRow:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    bottom: -3.5rem; /* دقیقاً اندازه gap */
+    right: 50%;
+    transform: translateX(50%);
+    width: 0;
+    height: 3.5rem;
+    border-right: 2px dashed var(--border-subtle);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* ۳. کارت‌ها کاملاً شیشه‌ای بدون خط در پشت */
   .timelineRow .glassCard {
     width: 86% !important;
     max-width: 380px !important;
@@ -339,16 +348,24 @@
     padding: 1.25rem !important;
     border-radius: 18px;
 
-    /* مات‌تر کردن پس‌زمینه برای پوشاندن و دیده نشدن خط میانی از پشت شیشه */
-    background: #e2e8f0 !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    /* شیشه گلس شفاف و بلور ۲۴px */
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--border-subtle) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    box-shadow: 
+      0 10px 25px -5px rgba(51, 65, 85, 0.12),
+      0 1px 0 0 rgba(255, 255, 255, 0.25) inset !important;
   }
 
   [data-theme="dark"] .timelineRow .glassCard {
-    background: #0f121a !important; /* مات و تیره در دارک برای مخفی کردن خط */
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    background: var(--bg-surface) !important;
+    border-color: var(--border-subtle) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    box-shadow: 
+      0 10px 30px -10px rgba(0, 0, 0, 0.8),
+      0 1px 0 0 rgba(255, 255, 255, 0.1) inset !important;
   }
 
   .timelineRow .glassCard:hover,
@@ -365,18 +382,18 @@
   }
 }
 
-/* =========================================
+/* ==========================================================================
    چیدمان زیر 470px تا 320px
-   ========================================= */
+   ========================================================================== */
 @media (max-width: 470px) {
   .timelineContainer {
     gap: 3rem;
   }
 
-  .centerLine {
-    top: 0;
-    bottom: 1.5rem !important;
-    border-right: 2px dashed var(--border-subtle) !important;
+  /* تطبیق اندازه خط بین ردیف‌ها با فاصله ۳rem */
+  .timelineRow:not(:last-child)::after {
+    bottom: -3rem;
+    height: 3rem;
   }
 
   .timelineRow .glassCard {
@@ -387,6 +404,17 @@
     min-height: unset !important;
     max-height: unset !important;
     padding: 1rem !important;
+
+    /* حفظ شفافیت شیشه‌ای */
+    background: var(--bg-surface) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+  }
+
+  [data-theme="dark"] .timelineRow .glassCard {
+    background: var(--bg-surface) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
   }
 
   .node {

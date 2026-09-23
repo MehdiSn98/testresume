@@ -177,3 +177,35 @@ main section.visible {
   transform: translateY(0) scale(1) !important;
   filter: blur(0) !important;
 }
+
+/* ==========================================================================
+   حل مشکل رفتن تیتر زیر نوبار هنگام اسکرول در موبایل
+   ========================================================================== */
+
+/* مقدار پیش‌فرض دسکتاپ برای تمام سکشن‌ها */
+main section,
+section[id] {
+  scroll-margin-top: 85px;
+}
+
+/* افزایش آفست در موبایل متناسب با ارتفاع هدر موبایل */
+@media (max-width: 680px) {
+  main section,
+  section[id],
+  .experienceSection,
+  .roadmapSection,
+  .projectsSection {
+    scroll-margin-top: 110px !important;
+  }
+}
+
+/* برای نمایشگرهای خیلی کوچک */
+@media (max-width: 480px) {
+  main section,
+  section[id],
+  .experienceSection,
+  .roadmapSection,
+  .projectsSection {
+    scroll-margin-top: 115px !important;
+  }
+}
